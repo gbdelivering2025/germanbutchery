@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_pricing_unit_prices",
+  "info": {
+    "displayName": "Unit Price",
+    "description": "Flexible pricing per unit type"
+  },
+  "options": {},
+  "attributes": {
+    "unitType": {
+      "type": "enumeration",
+      "enum": [
+        "grams",
+        "kilograms",
+        "pieces",
+        "packets"
+      ],
+      "required": true
+    },
+    "unitValue": {
+      "type": "decimal",
+      "required": true,
+      "default": 1
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "default": "RWF"
+    }
+  }
+}

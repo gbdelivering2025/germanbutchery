@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "themes",
+  "info": {
+    "singularName": "theme",
+    "pluralName": "themes",
+    "displayName": "Theme",
+    "description": "Theme customization settings"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "primaryColor": {
+      "type": "string",
+      "default": "#DC2626"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "default": "#1F2937"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#F59E0B"
+    },
+    "fontFamily": {
+      "type": "enumeration",
+      "enum": [
+        "Inter",
+        "Roboto",
+        "Open Sans",
+        "Montserrat",
+        "Poppins",
+        "Lato"
+      ],
+      "default": "Inter"
+    },
+    "buttonStyle": {
+      "type": "enumeration",
+      "enum": [
+        "rounded",
+        "square",
+        "pill"
+      ],
+      "default": "rounded"
+    },
+    "borderRadius": {
+      "type": "integer",
+      "default": 8
+    },
+    "mode": {
+      "type": "enumeration",
+      "enum": [
+        "light",
+        "dark"
+      ],
+      "default": "light"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

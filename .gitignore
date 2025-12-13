@@ -4,3 +4,12 @@ dist/
 .env.local
 .DS_Store
 /.next
+.tmp/
+*.sqlite
+*.sqlite3
+.strapi/
+build/
+.strapi-updater.json
+.strapi-cloud.json
+public/uploads/*
+!public/uploads/.gitkeep

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_contact_whatsapp_numbers",
+  "info": {
+    "displayName": "WhatsApp Number",
+    "description": "WhatsApp contact number"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "number": {
+      "type": "string",
+      "required": true
+    },
+    "isPrimary": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
