@@ -381,7 +381,6 @@ export const getStaticProps: GetStaticProps = async () => {
         theme: themesRes.data.data?.[0] || null,
         siteSettings: settingsRes.data.data || null,
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -390,7 +389,6 @@ export const getStaticProps: GetStaticProps = async () => {
         theme: null,
         siteSettings: null,
       },
-      revalidate: 60,
     };
   }
 };

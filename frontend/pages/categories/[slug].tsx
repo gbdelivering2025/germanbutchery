@@ -108,7 +108,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         theme: themesRes.data.data?.[0] || null,
         siteSettings: settingsRes.data.data || null,
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching category:', error);
