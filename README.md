@@ -204,6 +204,18 @@ npm run build
 
 ## 🔧 Configuration
 
+### TypeScript Configuration
+
+The project uses TypeScript with some relaxed settings to facilitate rapid development:
+- `strict: false` - Allows for more flexible typing during initial development
+- `ignoreBuildErrors: true` - Allows builds to complete even with type warnings
+
+**For production use**, it's recommended to:
+1. Enable strict mode: Set `"strict": true` in `tsconfig.json`
+2. Fix all type errors
+3. Remove `ignoreBuildErrors` from `next.config.js`
+4. Remove `ignoreDuringBuilds` from eslint configuration
+
 ### Database (Production)
 
 To use PostgreSQL in production, update `backend-strapi/.env`:
