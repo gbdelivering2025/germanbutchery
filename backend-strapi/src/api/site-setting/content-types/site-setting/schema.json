@@ -1,0 +1,66 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": "Global site settings"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "businessName": {
+      "type": "string",
+      "required": true,
+      "default": "German Butchery"
+    },
+    "businessDescription": {
+      "type": "text"
+    },
+    "whatsappNumbers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.whatsapp-number"
+    },
+    "email": {
+      "type": "email"
+    },
+    "address": {
+      "type": "text"
+    },
+    "announcement": {
+      "type": "richtext"
+    },
+    "showAnnouncement": {
+      "type": "boolean",
+      "default": false
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "seoKeywords": {
+      "type": "text"
+    },
+    "socialMediaLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.social-link"
+    },
+    "currency": {
+      "type": "string",
+      "default": "RWF"
+    },
+    "homepageSections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "layout.homepage-section"
+    }
+  }
+}
