@@ -15,6 +15,9 @@ export class Category {
   @Column({ type: 'text', nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  icon: string;
+
   @Column({ name: 'image_url', nullable: true })
   imageUrl: string;
 
