@@ -21,7 +21,7 @@ export default function CategoryNav({ categories, activeCategory }: CategoryNavP
           <button
             style={{
               ...styles.categoryButton,
-              ...(activeCategory === undefined ? styles.activeButton : {}),
+              ...(activeCategory == null ? styles.activeButton : {}),
             }}
           >
             <span style={styles.icon}>🏪</span>

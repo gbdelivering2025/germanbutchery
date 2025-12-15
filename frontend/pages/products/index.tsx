@@ -13,7 +13,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState((search as string) || '');
+  const [searchQuery, setSearchQuery] = useState(String(search || ''));
 
   useEffect(() => {
     const fetchCategories = async () => {

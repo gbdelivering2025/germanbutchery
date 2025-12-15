@@ -76,7 +76,7 @@ export default function CartPage() {
       message += `\n*Pickup at Store*\n`;
     }
     
-    message += `\n*Payment Method:* ${paymentMethod.replace('_', ' ').toUpperCase()}\n`;
+    message += `\n*Payment Method:* ${paymentMethod.replace(/_/g, ' ').toUpperCase()}\n`;
     
     if (notes) {
       message += `\n*Notes:* ${notes}\n`;
