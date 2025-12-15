@@ -73,7 +73,7 @@ export class ProductsService {
     const { categories, images, units, ...productData } = createProductDto;
 
     const product = this.productsRepository.create(productData);
-    const savedProduct = await this.productsRepository.save(product);
+    const savedProduct = await this.productsRepository.save(product) as unknown as Product;
 
     // Add categories
     if (categories && categories.length > 0) {

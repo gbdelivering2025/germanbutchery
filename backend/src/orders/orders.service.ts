@@ -63,7 +63,7 @@ export class OrdersService {
 
     // Create order
     const order = this.ordersRepository.create(orderData);
-    const savedOrder = await this.ordersRepository.save(order);
+    const savedOrder = await this.ordersRepository.save(order) as unknown as Order;
 
     // Create order items
     if (items && items.length > 0) {
