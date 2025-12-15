@@ -15,13 +15,19 @@ CREATE TABLE products (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   sku text UNIQUE,
   title text NOT NULL,
+  slug text UNIQUE,
   description text,
   base_unit text NOT NULL, -- 'g', 'kg', 'pc', 'pkt'
   base_unit_in_grams integer,
   price_per_base_unit numeric(12,2) NOT NULL,
+  compare_price numeric(12,2), -- Original price for sale comparison
   currency char(3) DEFAULT 'RWF',
   is_active boolean DEFAULT true,
-  created_at timestamptz DEFAULT now()
+  is_featured boolean DEFAULT false,
+  stock_status text DEFAULT 'in_stock', -- 'in_stock', 'out_of_stock', 'low_stock'
+  badge text, -- 'new', 'popular', 'sale'
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
 );
 
 CREATE TABLE product_variants (
@@ -36,14 +42,26 @@ CREATE TABLE product_variants (
 
 CREATE TABLE orders (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  order_number text UNIQUE,
   user_id uuid REFERENCES users(id),
+  customer_name text NOT NULL,
+  customer_phone text NOT NULL,
+  customer_email text,
   phone text,
-  total_amount numeric(12,2) NOT NULL,
-  currency char(3) DEFAULT 'RWF',
-  status text NOT NULL DEFAULT 'pending',
+  delivery_address text,
+  delivery_zone text,
+  delivery_fee numeric(12,2) DEFAULT 0,
+  delivery_type text DEFAULT 'delivery', -- 'delivery', 'pickup'
+  delivery_time text,
   payment_method text,
+  payment_status text DEFAULT 'pending', -- 'pending', 'paid', 'failed'
+  total_amount numeric(12,2) NOT NULL,
+  subtotal numeric(12,2) NOT NULL,
+  currency char(3) DEFAULT 'RWF',
+  status text NOT NULL DEFAULT 'pending', -- 'pending', 'confirmed', 'preparing', 'out_for_delivery', 'delivered', 'cancelled'
   notes text,
-  created_at timestamptz DEFAULT now()
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
 );
 
 CREATE TABLE order_items (
@@ -81,6 +99,7 @@ CREATE TABLE categories (
   name text NOT NULL,
   slug text UNIQUE NOT NULL,
   description text,
+  icon text, -- Emoji or icon identifier
   image_url text,
   parent_id uuid REFERENCES categories(id) ON DELETE SET NULL,
   display_order integer DEFAULT 0,
@@ -145,6 +164,23 @@ CREATE TABLE pages (
   meta_description text,
   is_published boolean DEFAULT false,
   created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
+
+-- Delivery zones
+CREATE TABLE delivery_zones (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  fee numeric(12,2) DEFAULT 0,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+
+-- Store settings (updated structure)
+CREATE TABLE store_settings (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  key text UNIQUE NOT NULL,
+  value text,
   updated_at timestamptz DEFAULT now()
 );
 
