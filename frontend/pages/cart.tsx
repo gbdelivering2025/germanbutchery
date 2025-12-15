@@ -79,11 +79,11 @@ export default function CartPage() {
             {items.map((item) => (
               <div key={item.id} className="card" style={styles.cartItem}>
                 <img 
-                  src={item.imageUrl || '/placeholder.jpg'} 
+                  src={item.imageUrl || '/placeholder.svg'} 
                   alt={item.title}
                   style={styles.itemImage}
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/placeholder.jpg';
+                    (e.target as HTMLImageElement).src = '/placeholder.svg';
                   }}
                 />
                 

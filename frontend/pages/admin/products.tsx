@@ -176,7 +176,7 @@ export default function AdminProducts() {
             </thead>
             <tbody>
               {products.map((product) => {
-                const primaryImage = product.images?.find((img: any) => img.isPrimary)?.imageUrl || '/placeholder.jpg';
+                const primaryImage = product.images?.find((img: any) => img.isPrimary)?.imageUrl || '/placeholder.svg';
                 return (
                   <tr key={product.id}>
                     <td style={styles.td}>
@@ -192,7 +192,7 @@ export default function AdminProducts() {
                         alt={product.title}
                         style={styles.productImage}
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/placeholder.jpg';
+                          (e.target as HTMLImageElement).src = '/placeholder.svg';
                         }}
                       />
                     </td>

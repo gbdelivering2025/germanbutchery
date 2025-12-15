@@ -14,7 +14,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const primaryImage = product.images?.find(img => img.isPrimary)?.imageUrl || '/placeholder.jpg';
+  const primaryImage = product.images?.find(img => img.isPrimary)?.imageUrl || '/placeholder.svg';
   const formattedPrice = new Intl.NumberFormat('en-RW', {
     style: 'currency',
     currency: product.currency || 'RWF',
@@ -30,7 +30,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.title}
             style={styles.image}
             onError={(e) => {
-              (e.target as HTMLImageElement).src = '/placeholder.jpg';
+              (e.target as HTMLImageElement).src = '/placeholder.svg';
             }}
           />
         </div>
