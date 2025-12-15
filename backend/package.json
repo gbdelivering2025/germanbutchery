@@ -11,10 +11,26 @@
     "@nestjs/common": "10.x",
     "@nestjs/core": "10.x",
     "@nestjs/platform-express": "10.x",
+    "@nestjs/typeorm": "10.x",
+    "@nestjs/jwt": "10.x",
+    "@nestjs/passport": "10.x",
+    "typeorm": "0.3.x",
+    "pg": "8.x",
+    "bcrypt": "5.x",
+    "passport": "0.6.x",
+    "passport-jwt": "4.x",
+    "passport-local": "1.x",
+    "class-validator": "0.14.x",
+    "class-transformer": "0.5.x",
+    "multer": "1.4.x",
     "reflect-metadata": "0.1.13",
     "rxjs": "7.x"
   },
   "devDependencies": {
+    "@types/bcrypt": "5.x",
+    "@types/multer": "1.x",
+    "@types/passport-jwt": "3.x",
+    "@types/passport-local": "1.x",
     "ts-node-dev": "2.x",
     "typescript": "5.x"
   }
