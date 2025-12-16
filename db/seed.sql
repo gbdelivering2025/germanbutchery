@@ -1,24 +1,24 @@
 -- Sample data for German Butchery
 
 -- Insert categories
-INSERT INTO categories (id, name, slug, description, display_order) VALUES
-  ('11111111-1111-1111-1111-111111111111', 'Beef', 'beef', 'Premium quality beef cuts', 1),
-  ('22222222-2222-2222-2222-222222222222', 'Pork', 'pork', 'Fresh pork products', 2),
-  ('33333333-3333-3333-3333-333333333333', 'Chicken', 'chicken', 'Farm fresh chicken', 3),
-  ('44444444-4444-4444-4444-444444444444', 'Sausages', 'sausages', 'German-style sausages', 4),
-  ('55555555-5555-5555-5555-555555555555', 'Deli', 'deli', 'Deli meats and cold cuts', 5),
-  ('66666666-6666-6666-6666-666666666666', 'Lamb', 'lamb', 'Premium lamb cuts', 6);
+INSERT INTO categories (id, name, slug, description, icon, display_order) VALUES
+  ('11111111-1111-1111-1111-111111111111', 'Beef', 'beef', 'Premium quality beef cuts', '🥩', 1),
+  ('22222222-2222-2222-2222-222222222222', 'Pork', 'pork', 'Fresh pork products', '🥓', 2),
+  ('33333333-3333-3333-3333-333333333333', 'Chicken', 'chicken', 'Farm fresh chicken', '🍗', 3),
+  ('44444444-4444-4444-4444-444444444444', 'Sausages', 'sausages', 'German-style sausages', '🌭', 4),
+  ('55555555-5555-5555-5555-555555555555', 'Deli', 'deli', 'Deli meats and cold cuts', '🥪', 5),
+  ('66666666-6666-6666-6666-666666666666', 'Lamb', 'lamb', 'Premium lamb cuts', '🐑', 6);
 
 -- Insert sample products
-INSERT INTO products (id, sku, title, description, base_unit, base_unit_in_grams, price_per_base_unit, currency) VALUES
-  ('a1111111-1111-1111-1111-111111111111', 'BEEF-RIB-001', 'Beef Ribeye Steak', 'Premium ribeye steak, well-marbled', 'kg', 1000, 8500.00, 'RWF'),
-  ('a2222222-2222-2222-2222-222222222222', 'BEEF-TEN-001', 'Beef Tenderloin', 'Tender beef tenderloin', 'kg', 1000, 12000.00, 'RWF'),
-  ('a3333333-3333-3333-3333-333333333333', 'PORK-CHOP-001', 'Pork Chops', 'Fresh pork chops', 'kg', 1000, 4500.00, 'RWF'),
-  ('a4444444-4444-4444-4444-444444444444', 'CHICK-BRS-001', 'Chicken Breast', 'Boneless chicken breast', 'kg', 1000, 3200.00, 'RWF'),
-  ('a5555555-5555-5555-5555-555555555555', 'SAUS-BRAT-001', 'Bratwurst', 'Traditional German bratwurst', 'pkt', 500, 2500.00, 'RWF'),
-  ('a6666666-6666-6666-6666-666666666666', 'SAUS-FRANK-001', 'Frankfurters', 'Classic frankfurters', 'pkt', 400, 2000.00, 'RWF'),
-  ('a7777777-7777-7777-7777-777777777777', 'LAMB-RACK-001', 'Lamb Rack', 'Premium lamb rack', 'kg', 1000, 9500.00, 'RWF'),
-  ('a8888888-8888-8888-8888-888888888888', 'DELI-HAM-001', 'Smoked Ham', 'German-style smoked ham', 'g', 100, 850.00, 'RWF');
+INSERT INTO products (id, sku, title, slug, description, base_unit, base_unit_in_grams, price_per_base_unit, currency, is_featured, stock_status, badge) VALUES
+  ('a1111111-1111-1111-1111-111111111111', 'BEEF-RIB-001', 'Beef Ribeye Steak', 'beef-ribeye-steak', 'Premium ribeye steak, well-marbled', 'kg', 1000, 8500.00, 'RWF', true, 'in_stock', 'popular'),
+  ('a2222222-2222-2222-2222-222222222222', 'BEEF-TEN-001', 'Beef Tenderloin', 'beef-tenderloin', 'Tender beef tenderloin', 'kg', 1000, 12000.00, 'RWF', true, 'in_stock', 'new'),
+  ('a3333333-3333-3333-3333-333333333333', 'PORK-CHOP-001', 'Pork Chops', 'pork-chops', 'Fresh pork chops', 'kg', 1000, 4500.00, 'RWF', false, 'in_stock', null),
+  ('a4444444-4444-4444-4444-444444444444', 'CHICK-BRS-001', 'Chicken Breast', 'chicken-breast', 'Boneless chicken breast', 'kg', 1000, 3200.00, 'RWF', true, 'in_stock', 'popular'),
+  ('a5555555-5555-5555-5555-555555555555', 'SAUS-BRAT-001', 'Bratwurst', 'bratwurst', 'Traditional German bratwurst', 'pkt', 500, 2500.00, 'RWF', false, 'in_stock', null),
+  ('a6666666-6666-6666-6666-666666666666', 'SAUS-FRANK-001', 'Frankfurters', 'frankfurters', 'Classic frankfurters', 'pkt', 400, 2000.00, 'RWF', false, 'in_stock', null),
+  ('a7777777-7777-7777-7777-777777777777', 'LAMB-RACK-001', 'Lamb Rack', 'lamb-rack', 'Premium lamb rack', 'kg', 1000, 9500.00, 'RWF', true, 'in_stock', 'new'),
+  ('a8888888-8888-8888-8888-888888888888', 'DELI-HAM-001', 'Smoked Ham', 'smoked-ham', 'German-style smoked ham', 'g', 100, 850.00, 'RWF', false, 'low_stock', null);
 
 -- Link products to categories
 INSERT INTO product_categories (product_id, category_id) VALUES
@@ -57,12 +57,27 @@ INSERT INTO product_units (product_id, unit, multiplier, is_default) VALUES
   ('a8888888-8888-8888-8888-888888888888', 'kg', 1000.0, false);
 
 -- Insert site settings
-INSERT INTO site_settings (setting_key, setting_value) VALUES
-  ('store_info', '{"name": "German Butchery", "address": "Kigali, Rwanda", "phone": "+250 123 456 789", "whatsapp": "+250123456789", "email": "info@germanbutchery.rw"}'),
-  ('business_hours', '{"monday": "8:00 AM - 6:00 PM", "tuesday": "8:00 AM - 6:00 PM", "wednesday": "8:00 AM - 6:00 PM", "thursday": "8:00 AM - 6:00 PM", "friday": "8:00 AM - 6:00 PM", "saturday": "8:00 AM - 4:00 PM", "sunday": "Closed"}'),
-  ('theme', '{"primaryColor": "#8B0000", "secondaryColor": "#B22222", "fontFamily": "Inter, system-ui", "logoUrl": "/logo.png"}'),
-  ('delivery_zones', '{"zones": [{"name": "Kigali Center", "fee": 2000}, {"name": "Kigali Suburbs", "fee": 3000}, {"name": "Outside Kigali", "fee": 5000}]}'),
-  ('whatsapp_templates', '{"order_confirmation": "Thank you for your order! Order #{{orderId}} - Total: RWF {{total}}. We will contact you soon.", "status_update": "Order #{{orderId}} status updated to: {{status}}"}');
+INSERT INTO store_settings (key, value) VALUES
+  ('store_name', 'German Butchery'),
+  ('store_description', 'Premium quality meats and German-style sausages in Kigali, Rwanda'),
+  ('whatsapp_number', '+250123456789'),
+  ('store_email', 'info@germanbutchery.rw'),
+  ('store_phone', '+250 123 456 789'),
+  ('store_address', 'Kigali, Rwanda'),
+  ('primary_color', '#8B0000'),
+  ('secondary_color', '#1a1a1a'),
+  ('accent_color', '#25D366'),
+  ('logo_url', '/logo.png'),
+  ('currency', 'RWF');
+
+-- Insert delivery zones
+INSERT INTO delivery_zones (name, fee, is_active) VALUES
+  ('Kigali Center', 2000, true),
+  ('Kigali Suburbs', 3000, true),
+  ('Remera', 2500, true),
+  ('Kimironko', 3000, true),
+  ('Nyarutarama', 3500, true),
+  ('Outside Kigali', 5000, true);
 
 -- Insert sample banners
 INSERT INTO banners (title, link_url, display_order, is_active) VALUES

@@ -7,6 +7,7 @@ import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 import { OrdersModule } from './orders/orders.module';
 import { SettingsModule } from './settings/settings.module';
+import { DeliveryZonesModule } from './delivery-zones/delivery-zones.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { SettingsModule } from './settings/settings.module';
     CategoriesModule,
     OrdersModule,
     SettingsModule,
+    DeliveryZonesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

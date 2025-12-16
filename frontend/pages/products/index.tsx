@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/ui/Layout';
 import ProductCard from '../../components/store/ProductCard';
+import CategoryNav from '../../components/Category/CategoryNav';
+import { ProductCardSkeleton } from '../../components/UI/Skeleton';
 import { productsApi, categoriesApi } from '../../lib/api';
 
 export default function ProductsPage() {
@@ -11,7 +13,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(String(search || ''));
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -47,58 +49,71 @@ export default function ProductsPage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push(`/products?search=${searchQuery}`);
+    if (searchQuery.trim()) {
+      router.push(`/products?search=${searchQuery}`);
+    } else {
+      router.push('/products');
+    }
   };
 
   return (
     <Layout>
       <div className="container">
-        <h1 style={styles.title}>Products</h1>
+        <h1 style={styles.title}>Our Products</h1>
 
         {/* Search */}
         <form onSubmit={handleSearch} style={styles.searchForm}>
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search for products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={styles.searchInput}
           />
-          <button type="submit" className="btn btn-primary">Search</button>
+          <button type="submit" className="btn btn-primary">🔍 Search</button>
         </form>
 
-        {/* Category Filter */}
-        <div style={styles.filters}>
-          <button
-            onClick={() => router.push('/products')}
-            className={!category ? 'btn btn-primary' : 'btn'}
-            style={!category ? styles.activeFilter : styles.filterButton}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => router.push(`/products?category=${cat.slug}`)}
-              className={category === cat.slug ? 'btn btn-primary' : 'btn'}
-              style={category === cat.slug ? styles.activeFilter : styles.filterButton}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
+        {/* Category Navigation */}
+        <CategoryNav 
+          categories={categories} 
+          activeCategory={category as string}
+        />
 
         {/* Products Grid */}
         {loading ? (
-          <p>Loading products...</p>
-        ) : products.length === 0 ? (
-          <p>No products found.</p>
-        ) : (
-          <div className="grid grid-4" style={styles.grid}>
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+          <div className="grid grid-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <ProductCardSkeleton key={i} />
             ))}
           </div>
+        ) : products.length === 0 ? (
+          <div style={styles.emptyState}>
+            <p style={styles.emptyText}>No products found.</p>
+            <button 
+              className="btn btn-primary"
+              onClick={() => {
+                setSearchQuery('');
+                router.push('/products');
+              }}
+            >
+              View All Products
+            </button>
+          </div>
+        ) : (
+          <>
+            <div style={styles.resultInfo}>
+              <p style={styles.resultText}>
+                {products.length} product{products.length !== 1 ? 's' : ''} found
+                {category && ` in ${categories.find(c => c.slug === category)?.name || category}`}
+                {search && ` matching "${search}"`}
+              </p>
+            </div>
+            <div className="grid grid-4" style={styles.grid}>
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </Layout>
@@ -109,7 +124,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   title: {
     fontSize: '36px',
     fontWeight: 'bold',
-    marginBottom: '2rem',
+    marginBottom: '1.5rem',
     color: 'var(--color-text)',
   },
   searchForm: {
@@ -120,28 +135,30 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   searchInput: {
     flex: 1,
-    padding: '12px',
-    border: '1px solid var(--color-border)',
+    padding: '12px 16px',
+    border: '2px solid var(--color-border)',
     borderRadius: 'var(--border-radius)',
     fontSize: '16px',
     outline: 'none',
-  },
-  filters: {
-    display: 'flex',
-    gap: '0.5rem',
-    marginBottom: '2rem',
-    flexWrap: 'wrap',
-  },
-  filterButton: {
-    backgroundColor: 'white',
-    color: 'var(--color-text)',
-    border: '1px solid var(--color-border)',
-  },
-  activeFilter: {
-    backgroundColor: 'var(--color-primary)',
-    color: 'white',
+    transition: 'border-color 0.2s ease',
   },
   grid: {
     marginTop: '2rem',
+  },
+  emptyState: {
+    textAlign: 'center',
+    padding: '4rem 2rem',
+  },
+  emptyText: {
+    fontSize: '18px',
+    color: 'var(--color-text-light)',
+    marginBottom: '1.5rem',
+  },
+  resultInfo: {
+    marginBottom: '1rem',
+  },
+  resultText: {
+    fontSize: '14px',
+    color: 'var(--color-text-light)',
   },
 };
