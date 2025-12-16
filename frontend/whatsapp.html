@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WhatsApp Order Demo - German Butchery</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { font-size: 24px; margin-bottom: 10px; color: #333; }
+    p { margin-bottom: 20px; color: #666; line-height: 1.5; }
+    .product { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 6px; }
+    .product h3 { font-size: 18px; margin-bottom: 8px; color: #333; }
+    .product p { font-size: 14px; color: #777; margin-bottom: 10px; }
+    .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .controls label { font-size: 14px; font-weight: 500; }
+    .controls select, .controls input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+    .controls input[type="number"] { width: 80px; }
+    .customer-info { margin: 20px 0; }
+    .customer-info label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 14px; }
+    .customer-info input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; margin-bottom: 10px; }
+    button {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover { background: #20BA5A; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>WhatsApp Order Demo</h1>
+    <p>This demo shows how a customer can select flexible quantities (g/kg/pc/pkt) and send an order via WhatsApp to the shop owner. This uses WhatsApp Click-to-Chat and opens WhatsApp with a prefilled order message.</p>
+
+    <div class="product">
+      <h3>Bratwurst</h3>
+      <p>Price: 2500 RWF/kg</p>
+      <div class="controls">
+        <label>Unit:</label>
+        <select id="unit-bratwurst">
+          <option value="g">grams (g)</option>
+          <option value="100g">100g</option>
+          <option value="kg">kilogram (kg)</option>
+          <option value="pc">piece (pc)</option>
+          <option value="pkt">packet (pkt)</option>
+        </select>
+        <label>Quantity:</label>
+        <input type="number" id="qty-bratwurst" value="0" min="0" step="1" />
+      </div>
+    </div>
+
+    <div class="product">
+      <h3>Salami</h3>
+      <p>Price: 3000 RWF/kg</p>
+      <div class="controls">
+        <label>Unit:</label>
+        <select id="unit-salami">
+          <option value="g">grams (g)</option>
+          <option value="100g">100g</option>
+          <option value="kg">kilogram (kg)</option>
+          <option value="pc">piece (pc)</option>
+          <option value="pkt">packet (pkt)</option>
+        </select>
+        <label>Quantity:</label>
+        <input type="number" id="qty-salami" value="0" min="0" step="1" />
+      </div>
+    </div>
+
+    <div class="product">
+      <h3>Beef Sausage</h3>
+      <p>Price: 2800 RWF/kg</p>
+      <div class="controls">
+        <label>Unit:</label>
+        <select id="unit-beef-sausage">
+          <option value="g">grams (g)</option>
+          <option value="100g">100g</option>
+          <option value="kg">kilogram (kg)</option>
+          <option value="pc">piece (pc)</option>
+          <option value="pkt">packet (pkt)</option>
+        </select>
+        <label>Quantity:</label>
+        <input type="number" id="qty-beef-sausage" value="0" min="0" step="1" />
+      </div>
+    </div>
+
+    <div class="customer-info">
+      <label for="customer-name">Your Name (optional):</label>
+      <input type="text" id="customer-name" placeholder="e.g., John Doe" />
+      <label for="customer-phone">Your Phone (optional):</label>
+      <input type="text" id="customer-phone" placeholder="e.g., +250 78..." />
+    </div>
+
+    <button onclick="sendOrder()">Send order via WhatsApp</button>
+  </div>
+
+  <script>
+    function sendOrder() {
+      const products = [
+        { name: 'Bratwurst', unit: document.getElementById('unit-bratwurst').value, qty: parseInt(document.getElementById('qty-bratwurst').value) || 0 },
+        { name: 'Salami', unit: document.getElementById('unit-salami').value, qty: parseInt(document.getElementById('qty-salami').value) || 0 },
+        { name: 'Beef Sausage', unit: document.getElementById('unit-beef-sausage').value, qty: parseInt(document.getElementById('qty-beef-sausage').value) || 0 }
+      ];
+
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerPhone = document.getElementById('customer-phone').value.trim();
+
+      const orderItems = products.filter(p => p.qty > 0).map(p => `${p.qty} ${p.unit} ${p.name}`);
+      
+      if (orderItems.length === 0) {
+        alert('Please select at least one item to order.');
+        return;
+      }
+
+      let message = 'Hello! I would like to order:\n\n';
+      message += orderItems.join('\n');
+      
+      if (customerName) {
+        message += '\n\nName: ' + customerName;
+      }
+      if (customerPhone) {
+        message += '\nPhone: ' + customerPhone;
+      }
+
+      const phoneNumber = '250783654454';
+      const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+</body>
+</html>
